@@ -1,0 +1,34 @@
+#menu-social-menu-1 {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    color: white;
+  }
+  .menu-item {
+    margin: 15px;
+    font-size: 0;
+    a::before {
+      content: "\f081";
+      font-family: "ForkAwesome";
+      font-size: 2rem;
+      color: white;
+    }
+    &.menu-item-54 a::before {
+      content: "\f082";
+      color: white;
+    }
+    &.menu-item-55 a::before {
+      content: "\f16d";
+      color: white;
+    }
+  }
+}
+
+#menu-menu-principal-1{
+  list-style: none;
+  a{
+    color :#F6F6F6; 
+  } 
+}

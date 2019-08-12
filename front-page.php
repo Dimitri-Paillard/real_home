@@ -2,66 +2,61 @@
 /**
  * The main template file
  *
- * ...
  *
  * @package scratch
- *
  */
+$lastproprietes = get_posts( array(
+	'numberposts' => 6,
+  'post_type' => 'propriete',
+  'orderby' => 'rand'
+) );
 
-$lastposts = get_posts(array(
-	'numberposts' => 5,
-	'post_type' => 'spot',
-));
+$lastposts = get_posts( array(
+	'posts_per_page' => 1,
+  'post__in' => get_option( 'sticky_posts' ),
+  'ignore_sticky_posts' => 1
+) );
 
-get_header();
+get_header(); 
 ?>
 
-<main class="py-6">
+<main>
 
-	<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+  <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-		<article class="container">
-			<h1 class="entry-title">
-				<?php the_title(); ?>
-			</h1>
+  <article <?php post_class(); ?>>
+    <div class="entry-content container py-5 w-75">
+      <?php the_content() ?>
+    </div>
+  </article>
 
-			<?php if (has_post_thumbnail()) : ?>
-				<div class="row flex-md-row-reverse">
-					<div class="col-md-6 col-lg-4">
-						<?php the_post_thumbnail('thumb-510', array('class'=>'img-fluid')); ?>
-					</div>
-					<div class="col-md-6 col-lg-8">
-						<?php the_content() ?>
-					</div>
-				</div>
-			<?php else : ?>
-				<?php the_content() ?>
-			<?php endif; ?>
-		</article>
+  <?php endwhile; ?>
 
+  <?php else : ?>
+  <div class="container py-5">
+    <p><?php _e( 'Sorry, no posts matched your criteria.', 'scratch' ); ?></p>
+  </div>
+  <?php endif; ?>
 
-		<?php foreach ($lastposts as $post) : ?>
-			<?php setup_postdata($post);
-			$infos = get_field_object('duree'); ?>
-
-            <article class="container" <?php post_class(); ?>>
-                <figure>
-                    <a href="<?php the_permalink() ?>"><?php the_post_thumbnail('medium') ?></a>
-                </figure>
-                <h3><a href="<?php the_permalink() ?>"><?php the_title() ?></a></h3>
-                <p><?php the_excerpt() ?></p>
-            </article>
-
-
-		<?php endforeach; ?>
-		<?php wp_reset_postdata(); ?>
-
-
-
-	<?php endwhile; ?>
-	<?php else : ?>
-		<p><?php _e('Sorry, no posts matched your criteria.'); ?></p>
-	<?php endif; ?>
 </main>
+
+<section class="py-5 front-proprietes container">
+  <?php if ( $lastproprietes ) : ?>
+    <div class="row front-proprietes_grid">
+      <?php foreach ( $lastproprietes as $post ) :
+          setup_postdata( $post );	
+
+          get_template_part( 'template-parts/content', 'properties' );
+
+      endforeach; 
+      wp_reset_postdata(); ?>
+    </div>
+  <?php endif;?>
+  <div class="text-center">
+    <a href="<?= esc_url( home_url( '/' ) ) ?>/propriete/" class="btn btn-outline-primary my-5"><?php _e('Toutes les propriétés', 'scratch'); ?></a>
+  </div>
+</section>
+
 <?php get_sidebar('lastposts') ?>
-<?php get_footer() ?>
+
+<?php get_footer(); ?>

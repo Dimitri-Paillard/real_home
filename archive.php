@@ -1,38 +1,42 @@
 <?php
 /**
- * The template file for archive
+ * The main template file
  *
- * ...
  *
  * @package scratch
- *
  */
+$lastproprietes = get_posts( array(
+	'numberposts' => 6,
+  'post_type' => 'propriete',
+  'orderby' => 'rand'
+) );
 
-get_header();
+$lastposts = get_posts( array(
+	'posts_per_page' => 1,
+  'post__in' => get_option( 'sticky_posts' ),
+  'ignore_sticky_posts' => 1
+) );
+
+get_header(); 
 ?>
 
-<main class="py-5 container">
+<section class="py-5 front-proprietes container">
+  <?php if ( $lastproprietes ) : ?>
+    <div class="row front-proprietes_grid">
+      <?php foreach ( $lastproprietes as $post ) :
+          setup_postdata( $post );	
 
-  <?php the_archive_title('<h1 class="page-title">', '</h1>') ?>
+          get_template_part( 'template-parts/content', 'properties' );
 
-  <div class="row">
-
-    <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-
-      <article class="col-md-6 col-lg-4">
-        <a href="<?php the_permalink() ?>"><h2 class="entry-title"><?php the_title() ?></h2>
-        <?php the_post_thumbnail('thumb-510', array('class'=>'img-fluid')); ?>
-        </a>
-        <p><?php the_excerpt() ?></p>
-      </article>
-
-    <?php endwhile; ?>
-    <?php else : ?>
-      <p><?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
-    <?php endif; ?>
-
+      endforeach; 
+      wp_reset_postdata(); ?>
+    </div>
+  <?php endif;?>
+  <div class="text-center">
+    <a href="<?= esc_url( home_url( '/' ) ) ?>/propriete/" class="btn btn-outline-primary my-5"><?php _e('Toutes les propriétés', 'scratch'); ?></a>
   </div>
+</section>
 
-</main>
+<?php get_sidebar('lastposts') ?>
 
-<?php get_footer() ?>
+<?php get_footer(); ?>

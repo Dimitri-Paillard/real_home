@@ -1,1 +1,13 @@
+$color: #E2574C;
+$dark: #3C3C3C;
+$primary: #797979;
+$white: #F6F6F6;
+
 $font-family-base: 'Raleway', sans-serif;
+$body-color      : $dark;
+$enable-rounded  : false;
+$border-width    : 2px;
+$navbar-light-color               : lighten($primary, 0.3);
+$navbar-light-hover-color         : $primary;
+$navbar-light-active-color        : $primary;
+$navbar-light-toggler-border-color: $white;
