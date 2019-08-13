@@ -16,7 +16,7 @@ $champ_description =  get_field_object('description');
       </figure>
       <div class="card-body justify-content-center">
         <?php the_title('<h2 class="entry-title h4">', '</h2>'); ?>
-        <p><?= $champ_ville['label'] ?> : <strong><?= $champ_ville['value'] ?> <?= $champ_ville['append'] ?></strong></p>
+        <p><?= $champ_ville['label'] ?> : <strong><?= $champ_ville['choices'][$champ_ville['value']] ?></strong></p>
         <p><?= $champ_prix['label'] ?> : <strong><?= $champ_prix['value'] ?> <?= $champ_prix['append'] ?></strong></p>
       </div>
       <ul class="list-group list-group-flush">

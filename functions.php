@@ -59,17 +59,16 @@ function scratch_widgets_init()
         )
     );
     register_sidebar(
-		array(
-			'name'          => __( 'Blog Sidebar', 'twentyseventeen' ),
-			'id'            => 'sidebar-1',
-			'description'   => __( 'Add widgets here to appear in your sidebar on blog posts and archive pages.', 'twentyseventeen' ),
-			'before_widget' => '<section id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</section>',
-			'before_title'  => '<h2 class="widget-title">',
-			'after_title'   => '</h2>',
-		)
-	);
-
+        array(
+            'name'          => __('Blog Sidebar', 'twentyseventeen'),
+            'id'            => 'sidebar-1',
+            'description'   => __('Add widgets here to appear in your sidebar on blog posts and archive pages.', 'twentyseventeen'),
+            'before_widget' => '<section id="%1$s" class="widget %2$s">',
+            'after_widget'  => '</section>',
+            'before_title'  => '<h2 class="widget-title">',
+            'after_title'   => '</h2>',
+        )
+    );
 }
 
 add_action('widgets_init', 'scratch_widgets_init');
@@ -85,3 +84,36 @@ function scratch_excerpt_more($more)
     return $more;
 }
 add_filter('excerpt_more', 'scratch_excerpt_more');
+
+/**
+ * Archive propriete filtering
+ */
+add_action('pre_get_posts', 'my_pre_get_posts');
+
+function my_pre_get_posts($query)
+{
+    // validate
+    if (is_admin()) return;
+
+    if (!$query->is_main_query()) return;
+
+    if (is_post_type_archive('propriete')) {
+
+        if (isset($_GET['villes'])) {
+            $query->set('meta_key', 'ville');
+            $query->set('meta_query', array(
+                array(
+                    'key'        => 'ville',
+                    'value'        => $_GET['villes'],
+                    'compare'    => 'IN',
+                )
+            ));
+        }
+    }
+
+    // always return
+    return;
+}
+
+
+add_filter( 'get_the_archive_title', 'my_theme_archive_title' );
