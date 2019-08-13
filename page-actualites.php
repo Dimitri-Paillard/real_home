@@ -27,6 +27,4 @@ get_header();
   <?php endif;?>
 </section>
 
-<?php get_sidebar('lastposts') ?>
-
 <?php get_footer(); ?>

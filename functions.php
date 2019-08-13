@@ -22,6 +22,7 @@ function scratch_setup()
 
     // Custom Image sizes
     add_image_size('thumb-555', 555, 410, true);
+    add_image_size('thumb-750', 750, 600, true);
     add_image_size('thumb-1920', 1920, 1080, true);
 }
 
@@ -57,6 +58,18 @@ function scratch_widgets_init()
             'after_title' => '</h3>',
         )
     );
+    register_sidebar(
+		array(
+			'name'          => __( 'Blog Sidebar', 'twentyseventeen' ),
+			'id'            => 'sidebar-1',
+			'description'   => __( 'Add widgets here to appear in your sidebar on blog posts and archive pages.', 'twentyseventeen' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
+
 }
 
 add_action('widgets_init', 'scratch_widgets_init');
