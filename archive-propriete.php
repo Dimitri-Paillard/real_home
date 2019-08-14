@@ -28,17 +28,16 @@ get_header();
   <div class="row front-proprietes_grid">
     <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-
     <?php get_template_part('template-parts/content', 'properties'); ?>
-
-
 
     <?php endwhile; ?>
     <?php else : ?>
     <p><?php _e('Sorry, no posts matched your criteria.'); ?></p>
     <?php endif; ?>
   </div>
+  <div class="d-flex justify-content-center">
+    <?php the_posts_pagination() ?>
+  </div>
 </section>
-
 
 <?php get_footer(); ?>

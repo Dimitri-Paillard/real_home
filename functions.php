@@ -17,12 +17,13 @@ function scratch_setup()
         array(
             'primary' => __('Primary Menu', 'scratch'),
             'social' => __('Social Menu', 'scratch'),
+            'categorie' => __('Categorie Menu', 'scratch'),
         )
     );
 
     // Custom Image sizes
     add_image_size('thumb-555', 555, 410, true);
-    add_image_size('thumb-750', 750, 600, true);
+    add_image_size('thumb-750', 800, 410, true);
     add_image_size('thumb-1920', 1920, 1080, true);
 }
 
@@ -60,9 +61,9 @@ function scratch_widgets_init()
     );
     register_sidebar(
         array(
-            'name'          => __('Blog Sidebar', 'twentyseventeen'),
+            'name'          => __('Blog Sidebar', 'scratch'),
             'id'            => 'sidebar-1',
-            'description'   => __('Add widgets here to appear in your sidebar on blog posts and archive pages.', 'twentyseventeen'),
+            'description'   => __('Add widgets here to appear in your sidebar on blog posts and archive pages.', 'scratch'),
             'before_widget' => '<section id="%1$s" class="widget %2$s">',
             'after_widget'  => '</section>',
             'before_title'  => '<h2 class="widget-title">',
@@ -116,4 +117,4 @@ function my_pre_get_posts($query)
 }
 
 
-add_filter( 'get_the_archive_title', 'my_theme_archive_title' );
+add_filter('get_the_archive_title', 'my_theme_archive_title');

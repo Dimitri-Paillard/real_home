@@ -29,41 +29,29 @@ $champ_pieces = get_field_object('nombre_de_pieces');
 get_header();
 ?>
 
+<?php
+$champ_date = get_field_object('date');
+$champ_illustration = get_field_object('illustration');
+$champ_body =  get_field_object('corps_de_texte');
+?>
+
 <section class="py-5 front-proprietes container">
-    <article <?php post_class('card-propriete-article'); ?>>
-        <a class="card-spot_link" href="<?php the_permalink(); ?>">
-            <div class="row">
-                <figure class="card-propriete-figure mb-0 col-6">
-                    <?= get_the_post_thumbnail($post->ID, 'thumb-555', array('class' => 'img-fluid card-propriete_img')) ?>
-                </figure>
-                <div class="col-6">
-                    <p><i class="fa fa-bookmark-o fa-2x" aria-hidden="true"></i></i><strong class="card-price col-4"><?= $champ_prix['value'] ?> <?= $champ_prix['append'] ?></strong></p>
-                    <hr>
-                    <p><?= $champ_ville['label'] ?> : <strong><?php the_field('ville'); ?></strong></p>
-                    <p><?= $champ_pieces['label'] ?> : <strong><?= $champ_pieces['value'] ?> <?= $champ_pieces['append'] ?></strong></p>
-                    <p><?= $champ_surface['label'] ?> : <strong><?= $champ_surface['value'] ?> <?= $champ_surface['append'] ?></strong></p>
-                    <p><?= $champ_Infos['label'] ?> : <strong><?= $champ_Infos['value'] ?> <?= $champ_Infos['append'] ?></strong></p>
-                    <hr>
-                    <p><strong><?= $champ_description['value'] ?> <?= $champ_description['append'] ?></strong></p>
-                </div>
-            </div>
-        </a>
-    </article>
-    <hr class="mb-5">
-    <?php if ($lastproprietes) : ?>
-    <h2 class="d-flex justify-content-center mb-5">Nos Propiétés</h2>
     <div class="row front-proprietes_grid">
-        <?php foreach ($lastproprietes as $post) :
-                setup_postdata($post);
-
-                get_template_part('template-parts/content', 'single-properties');
-
-            endforeach;
-            wp_reset_postdata(); ?>
-    </div>
-    <?php endif; ?>
-    <div class="text-center">
-        <a href="<?= esc_url(home_url('/')) ?>/propriete/" class="btn btn-outline-primary my-5"><?php _e('Toutes les propriétés', 'scratch'); ?></a>
+        <article <?php post_class('card-propriete-article col-md-9'); ?>>
+            <div class="" style="width: 600px;">
+                <div class="justify-content-center">
+                    <?php the_title('<h2 class="entry-title h4">', '</h2>'); ?>
+                    <p><strong><?= $champ_date['value']; ?></strong></p>
+                    <figure class="card-propriete-figure mb-0">
+                        <?= get_the_post_thumbnail($post->ID, 'thumb-750', array('class' => 'img-fluid card-propriete_img')) ?>
+                    </figure>
+                    <p><?= $champ_body['label'] ?> : <strong><?= $champ_body['value']; ?></strong></p>
+                </div>
+        </article>
+        <div <?php post_class('card-propriete-article col-md-3'); ?>>
+            <?php get_sidebar('sidebar-1') ?>
+        </div>    
+        <a class="card-propriete_btn btn btn-outline-light" href="<?php the_permalink(); ?>"><?php _e('Lire la suite', 'scratch') ?></a>
     </div>
 </section>
 
